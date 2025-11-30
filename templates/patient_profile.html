@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Profile</h2>
+<form method="post" class="form">
+  <label>Username</label>
+  <input value="{{ current_user.username }}" disabled/>
+  <label>Contact</label>
+  <input name="contact" value="{{ current_user.contact or '' }}"/>
+  <label>Age</label>
+  <input name="age" value="{{ current_user.age or '' }}"/>
+  <button class="btn" type="submit">Save</button>
+</form>
+{% endblock %}

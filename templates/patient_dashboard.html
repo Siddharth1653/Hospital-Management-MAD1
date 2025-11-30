@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Patient Dashboard</h2>
+<a class="btn" href="{{ url_for('patient_profile') }}">Edit Profile</a>
+
+<h3>Available Doctors</h3>
+<ul class="list">
+  {% for d in doctors %}
+    <li>
+      <strong>{{ d.name }}</strong> - {{ d.specialization }}
+      <div>{{ d.availability }}</div>
+      <a class="small" href="{{ url_for('book_appointment', doctor_id=d.id) }}">Book appointment</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<h3>Your Appointments</h3>
+<ul class="list">
+  {% for a in appointments %}
+    <li>
+      {{ a.date }} {{ a.time }} - {{ a.status }}
+      with {{ doctor_map[a.doctor_id].name if a.doctor_id in doctor_map else 'Doctor' }}
+    </li>
+  {% else %}
+    <li>No appointments yet</li>
+  {% endfor %}
+</ul>
+{% endblock %}

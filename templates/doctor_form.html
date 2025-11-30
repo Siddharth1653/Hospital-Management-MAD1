@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ profile and 'Edit Doctor' or 'New Doctor' }}</h2>
+<form method="post" class="form">
+  <label>Full name</label>
+  <input name="name" value="{{ profile.name if profile else '' }}" required/>
+  <label>Specialization</label>
+  <input name="specialization" value="{{ profile.specialization if profile else '' }}" required/>
+  <label>Availability (simple text)</label>
+  <input name="availability" value="{{ profile.availability if profile else '' }}" required/>
+  {% if not profile %}
+    <label>Doctor username</label>
+    <input name="username" required/>
+    <label>Doctor password</label>
+    <input name="password" type="password" required/>
+  {% endif %}
+  <button class="btn" type="submit">Save</button>
+</form>
+{% endblock %}

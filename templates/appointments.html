@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Appointment</h2>
+
+{% if role == 'doctor' %}
+  <form method="post" class="form">
+    <label>Status</label>
+    <select name="status">
+      <option {% if appt.status=='Booked' %}selected{% endif %}>Booked</option>
+      <option {% if appt.status=='Completed' %}selected{% endif %}>Completed</option>
+      <option {% if appt.status=='Cancelled' %}selected{% endif %}>Cancelled</option>
+    </select>
+    <label>Diagnosis</label><textarea name="diagnosis">{{ appt.diagnosis or '' }}</textarea>
+    <label>Prescription</label><textarea name="prescription">{{ appt.prescription or '' }}</textarea>
+    <label>Notes</label><textarea name="notes">{{ appt.notes or '' }}</textarea>
+    <button class="btn" type="submit">Save</button>
+  </form>
+
+{% else %}
+  <table class="table">
+    <tr><th>ID</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Time</th><th>Status</th></tr>
+    {% for a in appointments %}
+      <tr>
+        <td>{{ a.id }}</td>
+        <td>{{ user_map[a.patient_id].username if a.patient_id in user_map else '' }}</td>
+        <td>{{ user_map[a.doctor_id].username if a.doctor_id in user_map else '' }}</td>
+        <td>{{ a.date }}</td>
+        <td>{{ a.time }}</td>
+        <td>{{ a.status }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endif %}
+
+{% endblock %}

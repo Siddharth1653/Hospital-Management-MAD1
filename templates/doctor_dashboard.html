@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Doctor Dashboard</h2>
+<h3>{{ profile.name if profile else 'Profile' }}</h3>
+<div>Specialization: {{ profile.specialization if profile else '' }}</div>
+<h3>Appointments</h3>
+<table class="table">
+  <tr><th>Date</th><th>Time</th><th>Patient</th><th>Status</th><th>Action</th></tr>
+  {% for a in appointments %}
+  <tr>
+    <td>{{ a.date }}</td>
+    <td>{{ a.time }}</td>
+    <td>{{ patients[a.patient_id].username if patients[a.patient_id] else 'Patient' }}</td>
+    <td>{{ a.status }}</td>
+    <td><a href="{{ url_for('doctor_appointment', id=a.id) }}">Open</a></td>
+  </tr>
+  {% else %}
+  <tr><td colspan="5">No appointments</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

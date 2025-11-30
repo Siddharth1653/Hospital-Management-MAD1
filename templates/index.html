@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero">
+  <h1>Welcome to Hospital Management</h1>
+  <p>Register as a patient or login as admin/doctor.</p>
+  <div class="cta">
+    <a class="btn" href="{{ url_for('register') }}">Register</a>
+    <a class="btn" href="{{ url_for('login') }}">Login</a>
+  </div>
+</div>
+{% endblock %}
